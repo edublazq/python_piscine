@@ -55,24 +55,49 @@ class Flowering_Plant(Plant):
         print(f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}")
 
 class PrizeFlower(Flowering_Plant):
-    def __init__(self, name, height, age):
-        super().__init__(name, height, age)
+    def __init__(self, name, height, age, color, prize_points):
+        super().__init__(name, height, age, color)
+        self.__prize_points = prize_points
+
+    @property
+    def prize_points(self):
+        return self.__prize_points
+    
+    @prize_points.setter
+    def prize_points(self, nb):
+        if isinstance(nb, int):
+            self.__prize_points = nb
+        else:
+            print(f"{nb} is not an integer [REJECTED]")
 
     def looking(self):
         print(f"You stopped to look at {self.name}")
 
 class Garden:
-    def __init__(self, first_plant):
+    def __init__(self, name,*plants):
         self.__plants = []
-        if not isinstance(first_plant, Plant):
-            print (f"{first_plant} is not a plant, object wasn't created")
-            return
-        else:
-            self.__plants.append(first_plant)
+        self.__name = name
+        for plant in plants:
+            if not isinstance(plant, Plant):
+                print (f"{plant} is not a plant, object wasn't created")
+                return
+            else:
+                self.__plants.append(plant)
 
     @property
     def plants(self):
         return self.__plants
+
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, new_name):
+        if isinstance(new_name, str):
+            self.__name = new_name
+        else:
+            print(f"{new_name} is not a string [REJECTED]")
 
     @plants.setter
     def plants(self, *new_plants):
@@ -93,7 +118,7 @@ class Garden:
                 self.__plants.append(plant)
 
 class GardenManager:
-    def __init__(self, *gardens):
+    def __init__(self,*gardens):
         self.__gardens = []
         for garden in gardens:
             if isinstance(garden, Garden):
@@ -118,33 +143,40 @@ class GardenManager:
                 print(f"{garden} is not a garden [REJECTED]")
 
     def GardenStats(self):
-        print("________________")
-        print("GARDEN REPORT")
-        print("________________")
-        plants = 0
-        i = []
         normal_plants = 0
         flowering_plants = 0
         prize_flowers = 0
         for garden in self.gardens:
-            for plant in garden.plant:
-                plants += 1
+            print("_________________________")
+            print(f"GARDEN: {garden.name}")
+            print("_________________________")
+            for plant in garden.plants:
                 if isinstance(plant, Plant):
-                    if isinstance(plant, Flowering_Plant):
-                        if isinstance(plant, PrizeFlower):
-                            i.append(2)
-                        else:
-                            i.append(1)
+                    print(f"{plant.name}:")
+                    print(f"Statistics: {plant.height}cm {plant.age} days")
+                if isinstance(plant, Flowering_Plant):
+                    print(f"Color: {plant.color}")
+                    if isinstance(plant, PrizeFlower):
+                        print(f"Prize points: {plant.prize_points}")
+                        prize_flowers += 1
                     else:
-                        i.append(0)
-        for j in i:
-            if j == 2:
-                prize_flowers += 1
-            if j == 1:
-                flowering_plants += 1
-            if j == 0:
-                normal_plants += 1
+                        flowering_plants += 1
+                else:
+                    normal_plants += 1
+                print("_________________________________")
+        plants = normal_plants + prize_flowers + flowering_plants
         print(f"You have {plants} plants")
         print(f" {normal_plants} Standard Plants")
         print(f" {flowering_plants} Flowering Plants")
         print(f" {prize_flowers} Prize Flowers")
+
+
+if __name__ == "__main__":
+    plants_garden1 = []
+    for i in range(1, 4):
+        new_flower = PrizeFlower(f"Plant_{i}", 30, 12, "Red", i * 5)
+        plants_garden1.append(new_flower)
+        print(f"{plants_garden1[i - 1].name} added")
+    garden_1 = Garden("My_garden", plants_garden1)
+    garden_manager = GardenManager(garden_1)
+    garden_manager.GardenStats()
