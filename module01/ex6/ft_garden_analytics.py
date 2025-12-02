@@ -37,48 +37,29 @@ class Plant:
     def name(self, str):
         self.__name = str
 
-class Tree(Plant):
-    def __init__(self, name, height, age, trunk_diameter):
-        super().__init__(name, height, age)
-        self.__trunk_diameter = trunk_diameter
-    
-    @property
-    def trunk_diameter(self):
-        return self.__trunk_diameter
-    
-    @trunk_diameter.setter
-    def trunk_diameter(self, nb):
-        if nb > 0:
-            self.__trunk_diameter = nb
-        else:
-            print("Invalid Trunk diameter!! [REJECTED]")
+    def add_age(self):
+        self.age += 1
 
-    def produce_shade(self):
-        area = (3.141592 * self.trunk_diameter/2 *self.trunk_diameter / 2) / 100
-        print(f"{self.name} provides {area:.2f} square meters of shade")
-    
-    def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, trunk_diameter = {self.__trunk_diameter}")
+    def add_cm(self):
+        self.height += 1
 
-class Flower(Plant):
+class Flowering_Plant(Plant):
     def __init__(self, name, height, days, color):
         super().__init__(name, height, days)
         self.color = color
     
     def bloom(self):
-        print(f"{self.name} is blooming beatifully!")
+        print(f"{self.name} is blooming beatifully {self.color} petals!")
 
     def get_info(self):
         print(f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}")
 
-class Vegetable(Plant):
-    def __init__(self, name, height, days, harvest_season, nutritional_value):
-        super().__init__(name, height, days)
-        self.harvest_season = harvest_season
-        self.nutritional_value = nutritional_value
+class PrizeFlower(Flowering_Plant):
+    def __init__(self, name, height, age):
+        super().__init__(name, height, age)
 
-    def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, {self.harvest_season}, {self.nutritional_value}")
+    def looking(self):
+        print(f"You stopped to look at {self.name}")
 
 class Garden:
     def __init__(self, first_plant):
@@ -88,7 +69,7 @@ class Garden:
             return
         else:
             self.__plants.append(first_plant)
-    
+
     @property
     def plants(self):
         return self.__plants
@@ -136,23 +117,34 @@ class GardenManager:
             else:
                 print(f"{garden} is not a garden [REJECTED]")
 
-if __name__ == "__main__":
-    trees = []
-    flowers = []
-    vegetables = []
-    i = 1
-
-    while i <= 2:
-        new_tree = Tree(f"tree_{i}", i * 30, i * 100, i * 10)
-        new_flower = Flower(f"flower_{i}", i * 3, i * 5, "red")
-        new_vegetable = Vegetable(f"vegetable_{i}", i * 2, i * 30, "spring", "Vitamin A")
-        trees.append(new_tree)
-        flowers.append(new_flower)
-        vegetables.append(new_vegetable)
-        i += 1
-    trees[0].get_info()
-    trees[1].get_info()
-    flowers[0].get_info()
-    flowers[1].get_info()
-    vegetables[0].get_info()
-    vegetables[1].get_info()
+    def GardenStats(self):
+        print("________________")
+        print("GARDEN REPORT")
+        print("________________")
+        plants = 0
+        i = []
+        normal_plants = 0
+        flowering_plants = 0
+        prize_flowers = 0
+        for garden in self.gardens:
+            for plant in garden.plant:
+                plants += 1
+                if isinstance(plant, Plant):
+                    if isinstance(plant, Flowering_Plant):
+                        if isinstance(plant, PrizeFlower):
+                            i.append(2)
+                        else:
+                            i.append(1)
+                    else:
+                        i.append(0)
+        for j in i:
+            if j == 2:
+                prize_flowers += 1
+            if j == 1:
+                flowering_plants += 1
+            if j == 0:
+                normal_plants += 1
+        print(f"You have {plants} plants")
+        print(f" {normal_plants} Standard Plants")
+        print(f" {flowering_plants} Flowering Plants")
+        print(f" {prize_flowers} Prize Flowers")

@@ -5,7 +5,8 @@ class plant:
         self.name = name
         self.height = height
         self.age_days = age_days
-        print(f"Plant {self.name} created. ({self.height}cm, {self.age_days} days old)")
+        print(f"Plant {self.name} created.")
+        print(f"({self.height}cm, {self.age_days} days old)")
 
     def grow(self):
         self.height += 1

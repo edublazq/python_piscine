@@ -5,8 +5,9 @@ class SecurePlant:
         self.__name = name
         self.__height = height
         self.__age = days
-        print(f"Plant {self.__name} created. ({self.__height}cm, {self.__age} days old)")
-    
+        print(f"Plant {self.name} created.")
+        print(f"({self.height}cm, {self.age} days old)")
+
     @property
     def name(self):
         return self.__name
@@ -40,10 +41,10 @@ class SecurePlant:
     def get_info(self):
         print(f"{self.name}: {self.height}cm, {self.__age} days old")
 
+
 if __name__ == "__main__":
     plant = SecurePlant("Marcelo", 15, 20)
     plant.age = 12
     plant.get_info()
     plant.age = -1
     plant.get_info()
-

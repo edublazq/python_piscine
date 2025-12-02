@@ -5,7 +5,8 @@ class Plant:
         self.__name = name
         self.__height = height
         self.__age = days
-        print(f"Plant {self.__name} created. ({self.__height}cm, {self.__age} days old)")
+        print(f"Plant {self.name} created.")
+        print(f"({self.height}cm, {self.age} days old)")
 
     @property
     def name(self):
@@ -37,15 +38,16 @@ class Plant:
     def name(self, str):
         self.__name = str
 
+
 class Tree(Plant):
     def __init__(self, name, height, age, trunk_diameter):
         super().__init__(name, height, age)
         self.__trunk_diameter = trunk_diameter
-    
+
     @property
     def trunk_diameter(self):
         return self.__trunk_diameter
-    
+
     @trunk_diameter.setter
     def trunk_diameter(self, nb):
         if nb > 0:
@@ -54,22 +56,27 @@ class Tree(Plant):
             print("Invalid Trunk diameter!! [REJECTED]")
 
     def produce_shade(self):
-        area = (3.141592 * self.trunk_diameter/2 *self.trunk_diameter / 2) / 100
+        radius = self.trunk_diameter / 2
+        area = (3.141592 * radius * radius / 2) / 100
         print(f"{self.name} provides {area:.2f} square meters of shade")
-    
+
     def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, trunk_diameter = {self.__trunk_diameter}")
+        print(f"{self.name}: {self.height}cm, {self.age} days old")
+        print(f"trunk_diameter = {self.__trunk_diameter}")
+
 
 class Flower(Plant):
     def __init__(self, name, height, days, color):
         super().__init__(name, height, days)
         self.color = color
-    
+
     def bloom(self):
         print(f"{self.name} is blooming beatifully!")
 
     def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}")
+        print(f"{self.name}: {self.height}cm, {self.age} days old")
+        print(f"color = {self.color}")
+
 
 class Vegetable(Plant):
     def __init__(self, name, height, days, harvest_season, nutritional_value):
@@ -78,7 +85,9 @@ class Vegetable(Plant):
         self.nutritional_value = nutritional_value
 
     def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, {self.harvest_season}, {self.nutritional_value}")
+        print(f"{self.name}: {self.height}cm, {self.age} days old")
+        print(f"{self.harvest_season}, {self.nutritional_value}")
+
 
 if __name__ == "__main__":
     trees = []
@@ -89,10 +98,10 @@ if __name__ == "__main__":
     while i <= 2:
         new_tree = Tree(f"tree_{i}", i * 30, i * 100, i * 10)
         new_flower = Flower(f"flower_{i}", i * 3, i * 5, "red")
-        new_vegetable = Vegetable(f"vegetable_{i}", i * 2, i * 30, "spring", "Vitamin A")
+        new_vgt = Vegetable(f"vegt_{i}", i * 2, i * 30, "spring", "Vitamin A")
         trees.append(new_tree)
         flowers.append(new_flower)
-        vegetables.append(new_vegetable)
+        vegetables.append(new_vgt)
         i += 1
     trees[0].get_info()
     trees[1].get_info()
