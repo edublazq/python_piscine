@@ -26,6 +26,7 @@ def error_checker(error: int):
         case 3:
             raise GardenError("Not enough water in the tank")
 
+
 if __name__ == "__main__":
     print("=== CUSTOM GARDEN ERRORS ===")
     for i in range(0, 4):
@@ -35,4 +36,3 @@ if __name__ == "__main__":
         except GardenError as error_msg:
             print(f"Caught {type(error_msg).__name__}: {error_msg}")
     print("\nProgram ended without stopping on errors!")
-

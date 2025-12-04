@@ -4,14 +4,14 @@ def test_temperature_input():
     temp_str = input("\nTesting temperature: ")
     try:
         int(temp_str)
-    except:
-        print(f"{temp_str} is not a number")
+    except Exception as error_msg:
+        print(f"{temp_str} is not a number: {error_msg}")
         return
     return temp_str
 
-def check_temperature(temp_str):
 
-    if temp_str == None:
+def check_temperature(temp_str):
+    if temp_str is None:
         return
     else:
         temp = int(temp_str)

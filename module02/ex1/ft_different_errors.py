@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-def garden_operations(exec : int):
+def garden_operations(exec: int):
     thisdict = {
         "brand": "Ford",
         "model": "Mustang",
@@ -11,6 +11,7 @@ def garden_operations(exec : int):
             int("abc")
         case 1:
             n = 4 / 0
+            print(f"{n}")
         case 2:
             open("imposiblequeexista.txt", "r")
         case 3:
@@ -18,6 +19,7 @@ def garden_operations(exec : int):
         case 4:
             for i in range(0, 4):
                 garden_operations(i)
+
 
 def test_error_types():
     for i in range(0, 4):
@@ -33,6 +35,7 @@ def test_error_types():
         garden_operations(4)
     except Exception:
         print("Caught an error! (program is still on running)")
+
 
 if __name__ == "__main__":
     test_error_types()
