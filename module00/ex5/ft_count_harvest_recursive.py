@@ -10,3 +10,5 @@ def ft_count_harvest_recursive(n=-1):
         print(f"Day {n}")
     if i == n:
         print("Harvest Day!")
+
+ft_count_harvest_recursive()

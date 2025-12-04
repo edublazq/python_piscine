@@ -43,7 +43,7 @@ class Plant:
     def add_cm(self):
         self.height += 1
 
-class Flowering_Plant(Plant):
+class FloweringPlant(Plant):
     def __init__(self, name, height, days, color):
         super().__init__(name, height, days)
         self.color = color
@@ -54,7 +54,7 @@ class Flowering_Plant(Plant):
     def get_info(self):
         print(f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}")
 
-class PrizeFlower(Flowering_Plant):
+class PrizeFlower(FloweringPlant):
     def __init__(self, name, height, age, color, prize_points):
         super().__init__(name, height, age, color)
         self.__prize_points = prize_points
@@ -78,11 +78,16 @@ class Garden:
         self.__plants = []
         self.__name = name
         for plant in plants:
-            if not isinstance(plant, Plant):
-                print (f"{plant} is not a plant, object wasn't created")
-                return
-            else:
-                self.__plants.append(plant)
+            # if isinstance(plant, Plant):
+            #     self.__plants.append(plant)
+            # elif isinstance(plant, PrizeFlower):
+            #     self.__plants.append(plant)
+            # elif isinstance(plant, FloweringPlant):
+            self.__plants.append(plant)
+            # else:
+            #     print (f"{plant} is not a plant of any type")
+                #return
+        print(f"Plants: {self.__plants}")
 
     @property
     def plants(self):
@@ -147,14 +152,13 @@ class GardenManager:
         flowering_plants = 0
         prize_flowers = 0
         for garden in self.gardens:
-            print("_________________________")
+            print("===========================")
             print(f"GARDEN: {garden.name}")
-            print("_________________________")
+            print("===========================")
             for plant in garden.plants:
-                if isinstance(plant, Plant):
-                    print(f"{plant.name}:")
-                    print(f"Statistics: {plant.height}cm {plant.age} days")
-                if isinstance(plant, Flowering_Plant):
+                print(f"{plant.name}:")
+                print(f"Statistics: {plant.height}cm {plant.age} days")
+                if isinstance(plant, FloweringPlant):
                     print(f"Color: {plant.color}")
                     if isinstance(plant, PrizeFlower):
                         print(f"Prize points: {plant.prize_points}")
@@ -174,9 +178,9 @@ class GardenManager:
 if __name__ == "__main__":
     plants_garden1 = []
     for i in range(1, 4):
-        new_flower = PrizeFlower(f"Plant_{i}", 30, 12, "Red", i * 5)
+        new_flower = FloweringPlant(f"Plant_{i}", 30, 12, "Red")
         plants_garden1.append(new_flower)
         print(f"{plants_garden1[i - 1].name} added")
-    garden_1 = Garden("My_garden", plants_garden1)
+    garden_1 = Garden("My_garden", *plants_garden1)
     garden_manager = GardenManager(garden_1)
     garden_manager.GardenStats()
