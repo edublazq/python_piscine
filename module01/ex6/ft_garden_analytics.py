@@ -1,11 +1,14 @@
 #! /usr/bin/env python3
 
+
 class Plant:
     def __init__(self, name, height, days):
         self.__name = name
         self.__height = height
         self.__age = days
-        print(f"Plant {self.__name} created. ({self.__height}cm, {self.__age} days old)")
+        print(
+            f"Plant {self.__name} created. ({self.__height}cm, {self.__age} days old)"
+        )
 
     @property
     def name(self):
@@ -43,16 +46,20 @@ class Plant:
     def add_cm(self):
         self.height += 1
 
+
 class FloweringPlant(Plant):
     def __init__(self, name, height, days, color):
         super().__init__(name, height, days)
         self.color = color
-    
+
     def bloom(self):
         print(f"{self.name} is blooming beatifully {self.color} petals!")
 
     def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}")
+        print(
+            f"{self.name}: {self.height}cm, {self.age} days old, color = {self.color}"
+        )
+
 
 class PrizeFlower(FloweringPlant):
     def __init__(self, name, height, age, color, prize_points):
@@ -62,7 +69,7 @@ class PrizeFlower(FloweringPlant):
     @property
     def prize_points(self):
         return self.__prize_points
-    
+
     @prize_points.setter
     def prize_points(self, nb):
         if isinstance(nb, int):
@@ -73,8 +80,9 @@ class PrizeFlower(FloweringPlant):
     def looking(self):
         print(f"You stopped to look at {self.name}")
 
+
 class Garden:
-    def __init__(self, name,*plants):
+    def __init__(self, name, *plants):
         self.__plants = []
         self.__name = name
         for plant in plants:
@@ -86,7 +94,7 @@ class Garden:
             self.__plants.append(plant)
             # else:
             #     print (f"{plant} is not a plant of any type")
-                #return
+            # return
         print(f"Plants: {self.__plants}")
 
     @property
@@ -96,7 +104,7 @@ class Garden:
     @property
     def name(self):
         return self.__name
-    
+
     @name.setter
     def name(self, new_name):
         if isinstance(new_name, str):
@@ -109,7 +117,7 @@ class Garden:
         self.__plants.clear()
         for plant in new_plants:
             if not isinstance(plant, Plant):
-                print (f"{plant} is not a plant [REJECTED]")
+                print(f"{plant} is not a plant [REJECTED]")
                 return
             else:
                 self.__plants.append(plant)
@@ -117,20 +125,21 @@ class Garden:
     def add_plants(self, *new_plants):
         for plant in new_plants:
             if not isinstance(plant, Plant):
-                print (f"{plant} is not a plant [REJECTED]")
+                print(f"{plant} is not a plant [REJECTED]")
                 return
             else:
                 self.__plants.append(plant)
 
+
 class GardenManager:
-    def __init__(self,*gardens):
+    def __init__(self, *gardens):
         self.__gardens = []
         for garden in gardens:
             if isinstance(garden, Garden):
                 self.__gardens.append(garden)
             else:
                 print(f"{garden} is not a garden [REJECTED]")
-    
+
     @classmethod
     def create_garden_network(cls, *gardens):
         return cls(gardens)

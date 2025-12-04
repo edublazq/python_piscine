@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-class plant:
+class Plant:
     def __init__(self, name, height, age_days):
         self.name = name
         self.height = height
@@ -18,9 +18,9 @@ class plant:
 
 if __name__ == "__main__":
     i = 1
-    plant_1 = plant("Rosa", 10, 30)
-    plant_2 = plant("Sunflower", 25, 12)
-    plant_3 = plant("Cactus", 100, 300)
+    plant_1 = Plant("Rosa", 10, 30)
+    plant_2 = Plant("Sunflower", 25, 12)
+    plant_3 = Plant("Cactus", 100, 300)
     while i <= 7:
         print(f"Day {i}")
         plant_1.get_info()
